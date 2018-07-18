@@ -1,0 +1,22 @@
+{{#each saved}}
+<div class="story-body" id={{this._id}}>
+    <h2>
+        <a href="{{this.link}}" target="_blank">{{this.title}}</a>
+        {{!-- <form action="/save/{{this._id}}" method="POST">
+            <button type="submit" class="status" value="{{this._id}}">Unsave</button>
+        </form> --}}
+            <button class="status" value="{{this._id}}">Unsave</button>
+        {{#unless this.note}}
+            <button type="button" class="addnote" data-toggle="modal" data-target="#note{{this._id}}" value="{{this._id}}">Add Note</button>
+        {{/unless}}
+        {{#if this.note}}
+            <button type="button" class="addnote" data-toggle="modal" data-target="#note{{this._id}}" value="{{this._id}}">Edit Note</button>
+        {{/if}}
+    </h2>
+    <summary>{{this.summary}}</summary>
+</div>
+{{/each}}
+
+{{#each saved}}
+    {{> notes-modal }}
+{{/each}}
