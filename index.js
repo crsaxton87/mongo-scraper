@@ -38,6 +38,8 @@ app.use(method("_method"));
 //////////// Connect to MongoDB ////////////
 const databaseUrl = 'mongodb://localhost:27017/nyt';
 
+mongoose.Promise = Promise;
+
 if (process.env.MONGODB_URI) {
 	mongoose.connect(process.env.MONGODB_URI);
 }
