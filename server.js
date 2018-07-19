@@ -70,6 +70,7 @@ app.get("/scrape", function(req, res) {
         // Load into cheerio as $
         let $ = cheerio.load(response.data);
 
+        let added = 0;
         // Grab every div.story-body
         $("div.story-body").each(function(i, element) {
             // Save empty result object
@@ -89,14 +90,18 @@ app.get("/scrape", function(req, res) {
 				if (data.length === 0) {
 					newArticle.save(function(err, data) {
 						if (err) throw err;
-					});
+                    });
+                    added += 1;
+                    console.log(`Added inside: ${added}`)
 				}
-			});
-        });
+            });
 
-        // If successful, console log success
-        console.log("Scrape successful");
-        res.redirect("/");
+            console.log(`Added outside: ${added}`);
+            let stories = $("div.story-body").length;
+            if (added === stories){
+                res.json({added:added});
+            }
+        });
     });
 });
 
@@ -117,18 +122,25 @@ app.get("/saved", function(req, res) {
 
 // Route to save or un-save an article
 app.post("/save/:id", function(req, res) {
-    db.Article.find({_id: req.params.id}, function(err, data) {
+    db.Article.findOne({_id: req.params.id}, function(err, data) {
         console.log(data);
         if (data.saved) {
-            db.Article.findOneAndUpdate({_id: req.params.id}, {$set: {saved: false, buttonText: "Save article"}}, { new: true }, function(err, data){
-                res.redirect("/");
+            console.log('false check');
+            db.Article.findOneAndUpdate({_id: req.params.id}, {$set: {saved: false, buttonText: "Save Article"}}, { new: true }, function(err, data){
+                // res.redirect("/");
+                res.json(data);
             });
         }
         else {
-            db.Article.findOneAndUpdate({_id: req.params.id}, {$set: {saved: true, buttonText: "Saved"}}, { new: true }, function(err, data) {
-                res.redirect("/saved");
+            console.log('true check')
+            db.Article.findOneAndUpdate({_id: req.params.id}, {$set: {saved: true, buttonText: "Unsave"}}, { new: true }, function(err, data) {
+                // res.redirect("/saved");
+                res.json(data);
             });
         }
+    })
+    .catch(function(err) {
+        res.json(err);
     });
 });
 

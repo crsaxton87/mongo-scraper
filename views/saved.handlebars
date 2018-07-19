@@ -1,21 +1,26 @@
+<div class="container">
 {{#each saved}}
+<div class="row">
 <div class="story-body" id={{this._id}}>
-    <h2>
-        <a href="{{this.link}}" target="_blank">{{this.title}}</a>
-        {{!-- <form action="/save/{{this._id}}" method="POST">
-            <button type="submit" class="status" value="{{this._id}}">Unsave</button>
-        </form> --}}
-            <button class="status" value="{{this._id}}">Unsave</button>
+    <div class="col-md-9">
+        <h2><a href="{{this.link}}" target="_blank">{{this.title}}</a></h2>
+        <summary>{{this.summary}}</summary>
+    </div>
+    <div class="col-md-3">
+        <div class="btn-inside">
+            <button class="status btn" value="{{this._id}}" data-saved="saved">{{this.buttonText}}</button>
         {{#unless this.note}}
-            <button type="button" class="addnote" data-toggle="modal" data-target="#note{{this._id}}" value="{{this._id}}">Add Note</button>
+            <button type="button" class="addnote btn" data-toggle="modal" data-target="#note{{this._id}}" value="{{this._id}}">Add Note</button>
         {{/unless}}
         {{#if this.note}}
-            <button type="button" class="addnote" data-toggle="modal" data-target="#note{{this._id}}" value="{{this._id}}">Edit Note</button>
+            <button type="button" class="addnote btn" data-toggle="modal" data-target="#note{{this._id}}" value="{{this._id}}">Edit Note</button>
         {{/if}}
-    </h2>
-    <summary>{{this.summary}}</summary>
+        </div>
+    </div>
+</div>
 </div>
 {{/each}}
+</div>
 
 {{#each saved}}
     {{> notes-modal }}

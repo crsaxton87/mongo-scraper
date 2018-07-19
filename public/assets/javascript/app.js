@@ -21,7 +21,8 @@ $(".saveNote").on("click", function() {
               // Log the response
               console.log(data);
               $(".modal").modal("hide");
-              window.location = "/saved";
+            //   window.location = "/saved";
+              location.reload();
           });
     }
 });
@@ -46,11 +47,68 @@ $(".deleteNote").on("click", function() {
 $(".status").on("click", function() {
     let id = $(this).val();
     console.log(`ARTICLE ID ${id}`);
+    console.log($(this).attr("data-saved"));
     $.ajax({
         method: "POST",
         url: "/save/" + id,
-        success: function(result) {
-            console.log(result);
+    }).done(function(){
+        if ($(this).attr("data-saved") === "unsaved") {
+            window.location = "/saved";
+        }
+        else {
+            window.location = "/";
+        }
+    });
+}); 
+
+// Handle scrape click
+// $("#scrape-new").on("click", function() {
+//     $.ajax({
+//         method: "GET",
+//         url: "/scrape",
+//     }).done(function(data) {
+//         console.log(data)
+//         // alert(`Added ${data.added} articles`);
+//         // window.location = "/";
+//         bootbox.alert({
+//             message: `Scraped ${data.added} articles!`,
+//             backdrop: true,
+//             buttons: {
+//                 ok: {
+//                     label: 'OK <i class="fa fa-check"></i>',
+//                     callback: function(){
+//                         location.reload();
+//                     }
+//                 }
+//             }
+//         });
+
+//     });
+// });
+
+
+$("#scrape-new").on("click", function(e) {
+    e.preventDefault();
+    $.ajax({
+        method: "GET",
+        url: "/scrape",
+        success: function (response) {
+            let added = response.added;
+            console.log(response);
+            bootbox.alert({
+                message: `Scraped ${added} articles!`,
+                backdrop: true,
+                buttons: {
+                    ok: {
+                        label: 'OK <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
+                        callback: function(){
+                            window.location = "/";
+                        }
+                    }
+                }
+            });
         }
     });
 });
+
+

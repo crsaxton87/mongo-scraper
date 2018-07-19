@@ -1,12 +1,17 @@
+<div class="container">
 {{#each articles}}
+<div class="row">
 <div class="article-body" id={{this._id}}>
-    <h2>
-        <a href="{{this.link}}" target="_blank">{{this.title}}</a>
-        {{!-- <form action="/save/{{this._id}}" method="POST">
-            <button type="submit" class="status" value="{{this._id}}">{{this.buttonText}}</button>
-        </form> --}}
-            <button class="status" value="{{this._id}}">{{this.buttonText}}</button>
-    </h2>
-    <summary>{{this.summary}}</summary>
+    <div class="col-md-9">
+        <h2><a href="{{this.link}}" target="_blank">{{this.title}}</a></h2>
+        <summary>{{this.summary}}</summary>
+    </div>
+    <div class="col-md-3">
+        <div class="btn-inside">
+            <button class="status btn" value="{{this._id}}" data-saved="unsaved">{{this.buttonText}}</button>
+        </div>
+    </div>
+</div>
 </div>
 {{/each}}
+</div>

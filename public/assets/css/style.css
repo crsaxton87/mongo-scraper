@@ -1,0 +1,128 @@
+@font-face {
+    font-family: OldeEnglish;
+    src: url("../fonts/OldeEnglish.ttf");
+}
+
+body {
+    background: #fff; 
+}
+
+ol>li{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h2>a{
+    color: #760b0b;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+h2>a:hover{
+    color: #000;
+    text-decoration: none;
+}
+
+summary {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.3em;
+}
+
+.addnote, .status, .deleteNote, .saveNote {
+    border-radius: 40px;
+    border: 0;
+    box-shadow: 0 6px #760b0b;
+    background:#a80f0f;
+    transition: none;
+    color: #fff;
+}
+
+.addnote:hover, .status:hover, .deleteNote:hover, .saveNote:hover, .addnote:active, .status:active, .deleteNote:active, .saveNote:active {
+    box-shadow: 0 4px #760b0b;
+    top: 2px;
+    color: #760b0b;
+}
+
+.btn {
+    border: none;
+    font-family: inherit;
+    font-size: 1.2em;
+    padding: 12px 40px;
+    display: inline;
+    margin: 30px auto;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    outline: none;
+    position: relative;
+    vertical-align: top;
+}
+
+
+[class*="col-"]{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+}
+
+.container {
+    width: 95%;
+}
+
+.navbar {
+    margin: 0;
+    border-radius: 0px;
+    border: 0;
+    box-shadow: none;
+    background: none;
+}
+
+.navbar .navbar-nav {
+    float: right;
+    min-height: 60px;
+}
+
+.navbar .navbar-nav>li>a {
+    color: #000;
+    font-size: 2.5em;
+    line-height: 60px;
+}
+
+.navbar .navbar-nav>li>a:hover {
+    color: #a80f0f;
+}
+
+.navbar .navbar-collapse {
+    font-family: OldeEnglish;
+    font-weight: 400;
+}
+
+.navbar-default .navbar-brand {
+    font-family: OldeEnglish;
+    font-weight: 400;
+    color: #000;
+    text-shadow: none;
+    font-size: 3em;
+    line-height: 60px;
+    padding-left: 30px;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #a80f0f;
+}
+
+.row{
+    overflow: hidden; 
+}
+
+
+
+#cover {
+    width: 100vw;
+    margin: 0 0 20px 0;
+}
+
+#container {
+    margin: 0 30px;
+}
+
+
+
