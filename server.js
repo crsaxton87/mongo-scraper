@@ -99,12 +99,12 @@ app.get("/scrape", function(req, res) {
                     added += 1;
                     let stories = $("div.story-body").length;
                     if (added === stories){
-                        res.json({added:added});
+                        return res.json({added:added});
                     }
                 }
             });
         });
-        res.json({added:0});
+        return res.json({added:0});
     })
     .catch(function(err) {
         res.json(err);
