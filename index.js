@@ -43,6 +43,9 @@ mongoose.Promise = Promise;
 if (process.env.MONGODB_URI) {
 	mongoose.connect(process.env.MONGODB_URI);
 }
+else if (process.env.MONGOLAB_ORANGE_URI) {
+    mongoose.connect(process.env.MONGOLAB_ORANGE_URI);
+}
 else {
 	mongoose.connect(databaseUrl, { useNewUrlParser: true });
 };
