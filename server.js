@@ -92,16 +92,17 @@ app.get("/scrape", function(req, res) {
 						if (err) throw err;
                     });
                     added += 1;
-                    console.log(`Added inside: ${added}`)
-				}
+                    let stories = $("div.story-body").length;
+                    if (added === stories){
+                        res.json({added:added});
+                    }
+                }
             });
-
-            console.log(`Added outside: ${added}`);
-            let stories = $("div.story-body").length;
-            if (added === stories){
-                res.json({added:added});
-            }
         });
+        res.json({added:0});
+    })
+    .catch(function(err) {
+        res.json(err);
     });
 });
 

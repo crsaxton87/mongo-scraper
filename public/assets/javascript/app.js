@@ -98,13 +98,9 @@ $("#scrape-new").on("click", function(e) {
             bootbox.alert({
                 message: `Scraped ${added} articles!`,
                 backdrop: true,
-                buttons: {
-                    ok: {
-                        label: 'OK <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
-                        callback: function(){
-                            window.location = "/";
-                        }
-                    }
+                callback: function(){
+                    console.log('callback');
+                    window.location = "/";
                 }
             });
         }
