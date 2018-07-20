@@ -7,10 +7,6 @@ body {
     background: #fff; 
 }
 
-ol>li{
-    font-family: 'Times New Roman', Times, serif;
-}
-
 h2>a{
     color: #760b0b;
     font-family: 'Times New Roman', Times, serif;
@@ -20,6 +16,10 @@ h2>a{
 h2>a:hover{
     color: #000;
     text-decoration: none;
+}
+
+ol>li{
+    font-family: 'Times New Roman', Times, serif;
 }
 
 summary {
@@ -109,11 +109,15 @@ summary {
     color: #a80f0f;
 }
 
+.placeholder {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-align: center;
+}
+
 .row{
     overflow: hidden; 
 }
-
-
 
 #cover {
     width: 100vw;
