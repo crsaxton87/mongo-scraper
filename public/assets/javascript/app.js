@@ -61,31 +61,6 @@ $(".status").on("click", function() {
     });
 }); 
 
-// Handle scrape click
-// $("#scrape-new").on("click", function() {
-//     $.ajax({
-//         method: "GET",
-//         url: "/scrape",
-//     }).done(function(data) {
-//         console.log(data)
-//         // alert(`Added ${data.added} articles`);
-//         // window.location = "/";
-//         bootbox.alert({
-//             message: `Scraped ${data.added} articles!`,
-//             backdrop: true,
-//             buttons: {
-//                 ok: {
-//                     label: 'OK <i class="fa fa-check"></i>',
-//                     callback: function(){
-//                         location.reload();
-//                     }
-//                 }
-//             }
-//         });
-
-//     });
-// });
-
 
 $("#scrape-new").on("click", function(e) {
     e.preventDefault();
@@ -93,16 +68,30 @@ $("#scrape-new").on("click", function(e) {
         method: "GET",
         url: "/scrape",
         success: function (response) {
-            let added = response.added;
             console.log(response);
-            bootbox.alert({
-                message: `Scraped ${added} articles!`,
-                backdrop: true,
-                callback: function(){
-                    console.log('callback');
-                    window.location = "/";
-                }
-            });
+            if(response.added) {
+                let added = response.added;
+
+                bootbox.alert({
+                    message: `Scraped ${added} articles!`,
+                    backdrop: true,
+                    callback: function(){
+                        console.log('callback');
+                        window.location = "/";
+                    }
+                });
+            }
+            if(response.notadded) {
+                bootbox.alert({
+                    message: `Scraped 0 articles!`,
+                    backdrop: true,
+                    callback: function(){
+                        console.log('callback');
+                        window.location = "/";
+                    }
+                });
+            }
+
         }
     });
 });

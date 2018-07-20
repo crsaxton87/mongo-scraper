@@ -5,6 +5,7 @@ const Articleschema = new Schema({
     title: {
         type: String,
         required: true,
+        unique: true
     },
     link: {
         type: String,
@@ -32,7 +33,7 @@ const Articleschema = new Schema({
     }
 });
 
-Articleschema.index({title: "text"});
+// Articleschema.index({title: "text"});
 
 const Article = mongoose.model("Article", Articleschema);
 module.exports = Article;

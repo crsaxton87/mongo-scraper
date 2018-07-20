@@ -68,6 +68,48 @@ app.get("/", function(req, res) {
     });
 });
 
+// // GET route for scraping NYT website
+// app.get("/scrape", function(req, res) {
+//     // Grab HTML
+//     axios.get("http://www.nytimes.com/section/world").then(function(response) {
+//         // Load into cheerio as $
+//         let $ = cheerio.load(response.data);
+
+//         let added = 0;
+//         // Grab every div.story-body
+//         $("div.story-body").each(function(i, element) {
+//             // Save empty result object
+//             let result = {};
+
+//             // Add text and link as properties of result object
+//             result.title = $(element).find("h2.headline").text().trim();
+//             result.link = $(element).find("a").attr("href");
+
+//             if ($(element).find("p.summary")) {
+//                 result.summary = $(element).find("p.summary").text().trim();
+//             }
+
+//             // Create new Article using result object if it doesn't exist
+// 			let newArticle = new db.Article(result);
+// 			db.Article.find({title: result.title}, function(err, data) {
+// 				if (data.length === 0) {
+// 					newArticle.save(function(err, data) {
+// 						if (err) throw err;
+//                     });
+//                     added += 1;
+//                     let stories = $("div.story-body").length;
+//                     if (added === stories){
+//                         res.json({added:added});
+//                     }
+//                 }
+//             });
+//         });
+//     })
+//     .catch(function(err) {
+//         res.json(err);
+//     });
+// });
+
 // GET route for scraping NYT website
 app.get("/scrape", function(req, res) {
     // Grab HTML
@@ -76,42 +118,47 @@ app.get("/scrape", function(req, res) {
         let $ = cheerio.load(response.data);
 
         let added = 0;
+        let results = [];
         // Grab every div.story-body
         $("div.story-body").each(function(i, element) {
             // Save empty result object
-            let result = {};
+
 
             // Add text and link as properties of result object
-            result.title = $(element).find("h2.headline").text().trim();
-            result.link = $(element).find("a").attr("href");
+            let title = $(element).find("h2.headline").text().trim();
+            let link = $(element).find("a").attr("href");
+            let summary = '';
 
             if ($(element).find("p.summary")) {
-                result.summary = $(element).find("p.summary").text().trim();
+                summary = $(element).find("p.summary").text().trim();
             }
 
-            // Create new Article using result object if it doesn't exist
-			let newArticle = new db.Article(result);
-			db.Article.find({title: result.title}, function(err, data) {
-				if (data.length === 0) {
-					newArticle.save(function(err, data) {
-						if (err) throw err;
-                    });
-                    added += 1;
-                    let stories = $("div.story-body").length;
-                    if (added === stories){
-                        res.json({added:added});
-                    }
-                }
-            });
+            let entry = new db.Article({title:title,link:link,summary:summary});
+
+            if (!results.includes(entry)){
+                results.push(entry);
+            }
+            // console.log(results);
+
         });
-        if(!res){
-            res.json({added:0});
-        }
+
+        // Create new Article using result object if it doesn't exist
+        // db.Article.collection.insert(results, function(err, data) {
+        //     if (err) throw err;
+        //     console.log(data);
+        // });
+
+        db.Article.create(results, function(err, data) {
+            if (err) {
+                console.log("duplicates found");
+            }
+            console.log(data.length);
+        })
+        // .catch(function(err) {
+        //     res.json(err);
+        // });
 
     })
-    .catch(function(err) {
-        res.json(err);
-    });
 });
 
 // Route to get saved articles
