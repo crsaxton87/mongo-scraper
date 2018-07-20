@@ -2,7 +2,7 @@
 
 ![NYT Scraper Screenshot](./screenshot.jpg)
 
-Deployed app available [here]. (https://mongo-scraper-crs87.herokuapp.com/)
+Deployed app available [here](https://mongo-scraper-crs87.herokuapp.com/).
 
 ### Overview
 
