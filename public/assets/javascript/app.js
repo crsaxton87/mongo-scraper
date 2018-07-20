@@ -69,28 +69,18 @@ $("#scrape-new").on("click", function(e) {
         url: "/scrape",
         success: function (response) {
             console.log(response);
-            if(response.added) {
-                let added = response.added;
 
-                bootbox.alert({
-                    message: `Scraped ${added} articles!`,
-                    backdrop: true,
-                    callback: function(){
-                        console.log('callback');
-                        window.location = "/";
-                    }
-                });
-            }
-            if(response.notadded) {
-                bootbox.alert({
-                    message: `Scraped 0 articles!`,
-                    backdrop: true,
-                    callback: function(){
-                        console.log('callback');
-                        window.location = "/";
-                    }
-                });
-            }
+            let added = response.added;
+
+            bootbox.alert({
+                message: `Scraped ${added} articles!`,
+                backdrop: true,
+                callback: function(){
+                    console.log('callback');
+                    window.location = "/";
+                }
+            });
+            
 
         }
     });

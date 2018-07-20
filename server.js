@@ -153,7 +153,8 @@ app.get("/scrape", function(req, res) {
                 console.log("duplicates found");
             }
             console.log(data.length);
-        })
+            res.json({added:data.length});
+        });
         // .catch(function(err) {
         //     res.json(err);
         // });
